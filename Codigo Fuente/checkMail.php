@@ -1,9 +1,12 @@
 <?php
 include "database.php";
-$conn = arangoConnect();
-if (existDoc("users", $_REQUEST['mail'])){
-    echo "exist";
-} else {
-    echo "not";
+session_start();
+if(isset($_SESSION['mail'])) {
+    $conn = arangoConnect();
+    if (existDoc("users", $_REQUEST['mail'])) {
+        echo "exist";
+    } else {
+        echo "not";
+    }
 }
 ?>

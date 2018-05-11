@@ -65,9 +65,22 @@ if(!isset($_SESSION['mail'])){
         window.location.replace("view.php?id="+name);
     }
 
+    function newQuestion() {
+        var question = document.getElementById("pregunta").valueOf().value;
+        var tags = document.getElementById("tags").valueOf().value;
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange  = function() {
+            if(this.readyState == 4){
+                location.reload();
+            }
+        };
+        xmlhttp.open("GET", "newQuestion.php?question="+question+"&tags="+tags, true);
+        xmlhttp.send();
+    }
+
 </script>
 
-<body class="w3-responsive w3-red">
+<body class="w3-responsive">
 
 <!-- Navbar (sit on top) -->
 <nav class="navbar navbar-inverse">
@@ -77,8 +90,10 @@ if(!isset($_SESSION['mail'])){
         </div>
         <ul class="nav navbar-nav navbar-left">
             <li><a href="http://127.0.0.1:8529/_db/_system/_admin/aardvark/index.html#dashboard"><span class="fa fa-database"></span> Arango</a></li>
+            <li><a href="main.php"><span class="fa fa-refresh"></span> Recargar</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li><a  href="#"><span class="fa fa-user"></span> <?php echo $_SESSION['name']." ".$_SESSION['lastname'];?></a></li>
             <li><a  href="logout.php"><span class="fa fa-sign-out"></span> Cerrar sesión</a></li>
         </ul>
     </div>
@@ -104,11 +119,11 @@ if(!isset($_SESSION['mail'])){
         <div class="w3-col m12">
             <div class="w3-card-2 w3-round w3-dark-gray">
                 <div class="w3-container w3-padding">
-                    <textarea class="form-control w3-light-gray" placeholder="Pregunta" style="height:150px"></textarea>
+                    <textarea id="pregunta" class="form-control w3-light-gray" placeholder="Pregunta" style="height:150px"></textarea>
                     <br>
-                    <input type="text" data-role="tagsinput" name="tags" placeholder="Tags (opcional)">
+                    <input id="tags" type="text" data-role="tagsinput" name="tags" placeholder="Tags (opcional)">
                     <h6></h6>
-                    <button class="btn btn-default w3-right w3-gray w3-border-gray w3-hover-light-gray">Preguntar</button>
+                    <button onclick="newQuestion()" class="btn btn-default w3-right w3-gray w3-border-gray w3-hover-light-gray">Preguntar</button>
                 </div>
             </div>
         </div>
@@ -116,7 +131,7 @@ if(!isset($_SESSION['mail'])){
 
     <h6></h6>
 
-
+    <!--
     <div id="" class="w3-row-padding">
         <div class="w3-col m12">
             <div class="w3-card-2 w3-round w3-dark-gray">
@@ -136,7 +151,10 @@ if(!isset($_SESSION['mail'])){
             </div>
         </div>
     </div>
-    <h6></h6>
+    <h6></h6> -->
+    <?php
+        printQuestions();
+    ?>
 
 </div>
 

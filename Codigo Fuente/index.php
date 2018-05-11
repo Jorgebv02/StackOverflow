@@ -1,6 +1,12 @@
 <?php
 
 include ("database.php");
+
+session_start();
+if (isset($_SESSION['mail'])){
+    header("Location: main.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -80,7 +86,7 @@ include ("database.php");
     }
 </script>
 
-<body class="w3-responsive w3">
+<body class="w3-responsive">
 
 <!-- Navbar (sit on top) -->
 <nav class="navbar navbar-inverse">

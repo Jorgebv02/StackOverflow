@@ -1,17 +1,21 @@
 <?php
 include "database.php";
 
-$name = $_REQUEST['name'];
-$lastname = $_REQUEST['lastname'];
-$mail = $_REQUEST['mail'];
-$pass = password_hash($_REQUEST['pass'], PASSWORD_BCRYPT);
+session_start();
+if(isset($_SESSION['mail'])) {
 
-$document = newDoc();
-$document->set("_key", $mail);
-$document->set("name", $name);
-$document->set("lastname", $lastname);
-$document->set("pass", $pass);
+    $question = $_REQUEST['question'];
+    $tags = $_REQUEST['tags'];
 
-$id = saveDoc("users", $document);
-echo $id;
+    $document = newDoc();
+    $document->set("question", $question);
+    $document->set("tags", $tags);
+    $document->set("mail", $_SESSION['mail']);
+    $document->set("name", $_SESSION['name']);
+    $document->set("lastname", $_SESSION['lastname']);
+    $document->set("answers", "");
+
+    $id = saveDoc("questions", $document);
+    echo $id;
+}
 ?>
